@@ -6,8 +6,12 @@
      $ci->load->database();
      $sql="SELECT * FROM md_paddy_rate WHERE kms_yr='".$kms_yr."' ORDER BY effective_dt DESC LIMIT 1";
      $price  =   $ci->db->query($sql)->row();
-
-    return  $price->per_qui_rate;
+     if($price){
+      return  $price->per_qui_rate;
+     }else{
+      return  0;
+     }
+     
    // return  $kms_yr;
 }
 

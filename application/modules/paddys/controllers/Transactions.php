@@ -346,12 +346,11 @@ class Transactions extends MX_Controller {
 
             $this->load->view('post_login/main');
 
-            if($this->session->userdata['loggedin']['kms_id'] == 2 ){
+            if($this->session->userdata['loggedin']['kms_id'] == 4 ){
 
-                $this->load->view("workorder/print_data_2019", $workorder);
-
-            }else{
                 $this->load->view("workorder/print_data", $workorder);
+            }else{
+                $this->load->view("workorder/print_data_2022-23", $workorder);
             }
 
             $this->load->view('post_login/footer');
