@@ -110,7 +110,7 @@ Rice Miller to turn up in the Purchase Center for lifting of paddy etc. are to b
 Manager, BENFED so that remedial measures may be taken in time.</li>	
 <li style="padding: 0 0 10px 0; margin: 0; font-size: 15px;">In view of the <strong>COVID-19 pandemic situation</strong>, the society would take <strong>necessary precautionary measures at the
 procurement camps</strong> as per government instructions. These would include giving <strong>awareness message,
-maintenance of physical distancing</strong>, arrangement of adequate <strong>face mask</strong>, hand sanitizer, </strong>hand wash/ soap<strong> etc. at
+maintenance of physical distancing</strong>, arrangement of adequate <strong>face mask</strong>, hand sanitizer, <strong>hand wash/ soap</strong> etc. at
 the site of the camp. There should be shed and facility of drinking water at the procurement camp.</li>	
 <li style="padding: 0 0 10px 0; margin: 0; font-size: 15px;">In case of any misappropriation of paddy, appropriate legal action will be taken against the Society which includes
 lodging of FIR or the departmental proceedings, termination of contract or agreement etc. as the case may be
