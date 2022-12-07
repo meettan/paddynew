@@ -13,6 +13,7 @@
     
             <h3>
                 <span class="confirm-div" style="float:right; color:green;"></span>
+                <a href="<?php echo site_url("paddys/add_new/f_society_add");?>" class="btn btn-primary" style="width: 100px;">Add </a>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
