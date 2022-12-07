@@ -981,8 +981,6 @@ class Add_new extends MX_Controller {
 
                 "soc_name"      =>  $this->input->post('name'),
 
-                "inchargename"      =>  $this->input->post('inchargename'),
-
                 "agreementno"      =>  $this->input->post('agreementno'),
 
                 "reg_no"        =>  $this->input->post('reg_no'),
@@ -1050,10 +1048,15 @@ class Add_new extends MX_Controller {
                 "branch_id"        =>  $this->session->userdata['loggedin']['branch_id']
 
             );
+            $whereb = array(
+
+                "1 ORDER BY bank_name"    =>  NULL
+
+            );
             //Block List
             $society['block']   =   $this->Paddy->f_get_particulars("md_block", NULL,$where, 0);
 
-            
+            $society['bank_dtls']    =   $this->Paddy->f_get_particulars("md_bank_dtls", NULL, $whereb, 0);
           // Guidelines List
             $society['guidelines']  =   $this->Paddy->f_get_particulars("md_fs_guide_lines", NULL, NULL, 0);
 
@@ -1211,6 +1214,42 @@ class Add_new extends MX_Controller {
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $data_array = array (
+
+                "inchargename"  =>  $this->input->post('inchargename'),
+
+                "soc_name"      =>  $this->input->post('name'),
+
+                "reg_no"        =>  $this->input->post('reg_no'),
+
+                "reg_date"      =>  $this->input->post('reg_date'),
+
+                "tan"           =>  $this->input->post('tan'),
+
+                "police_station"  =>  $this->input->post('police_station'),
+
+                "post_office"     =>  $this->input->post('post_office'),
+
+                "pin"           => $this->input->post('pin_no'),
+
+                "soc_addr"      =>  $this->input->post('addr'),
+
+                "branch_id"     =>  $this->session->userdata['loggedin']['branch_id'],
+
+                "block"         =>  $this->input->post('block'),
+
+                "dist"          =>  $this->session->userdata['loggedin']['districts_catered'],
+
+                "ph_no"         =>  $this->input->post('ph_no'),
+
+                "email"         =>  $this->input->post('email'),
+
+                "branch_name"   =>  $this->input->post('brnch_name'),
+
+                "acc_type"      =>  $this->input->post('acc_type'),
+
+                "pan_no"        =>  $this->input->post('pan'),
+
+                "gst_no"        =>  $this->input->post('gst_no'),
 
                 "bank_name"     =>  $this->input->post('bnk_name'),
 
@@ -1676,20 +1715,57 @@ class Add_new extends MX_Controller {
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $data_array = array (
+                "mill_name"     =>  $this->input->post('name'),
 
-                "guide_lines_id"=>  $this->input->post('mill_type'),
+                "reg_no"        =>  $this->input->post('reg_no'),
+
+                "reg_date"      =>  $this->input->post('reg_date'),
+
+                "boiler_reg_no" =>  $this->input->post('boiler_reg_no'),
+
+                "tan"           =>  $this->input->post('tan'),
+
+                "police_station" =>  $this->input->post('police_station'),
+
+                "post_office"    =>  $this->input->post('post_office'),
+
+                "pin"            =>  $this->input->post('pin'),
+
+                "mill_addr"     =>  $this->input->post('addr'),
+
+                "branch_id"     =>  $this->session->userdata['loggedin']['branch_id'],
+
+                "block"         =>  $this->input->post('block'),
+
+                "dist"          =>  $this->session->userdata['loggedin']['districts_catered'],
+
+                "ph_no"         =>  $this->input->post('ph_no'),
+
+                "email"         =>  $this->input->post('email'),
 
                 "bank_name"     =>  $this->input->post('bnk_name'),
+
+                "branch_name"   =>  $this->input->post('brnch_name'),
+
+                "acc_type"      =>  $this->input->post('acc_type'),
 
                 "acc_no"        =>  $this->input->post('acc_no'),
 
                 "ifsc_code"     =>  $this->input->post('ifsc'),
+
+                "pan_no"        =>  $this->input->post('pan'),
+
+                "gst_no"        =>  $this->input->post('gst_no'),
+
+                "guide_lines_id"=>  $this->input->post('mill_type'),
 
                 "modified_by"   =>  $this->session->userdata['loggedin']['user_name'],
 
                 "modified_dt"   =>  date('Y-m-d')
 
             );
+
+           // print_r( $data_array);die;
 
             $where = array(
 

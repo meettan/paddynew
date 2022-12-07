@@ -193,13 +193,14 @@
                     <label for="bnk_name" class="col-sm-2 col-form-label">Bank Name:</label>
 
                     <div class="col-sm-10">
-
-                        <input type = "text"
-                            class= "form-control"
-                            name = "bnk_name"
-                            id   = "bnk_name"
-                        />
-
+                        <select class="form-control" name="bnk_name" id="bnk_name" required>
+                            <option value="">Select a Bank</option>
+                            <?php foreach($bank_dtls as $bank){?>
+                            <option value="<?php if(isset($bank->sl_no)) { echo $bank->sl_no; }  ?>"
+                                <?php   if($mill_dtls->bank_name == $bank->sl_no) { echo "selected" ;} ?>>
+                                <?php if(isset($bank->bank_name)) { echo $bank->bank_name; }?></option>
+                            <?php } ?>
+                        </select>
                     </div>
 
                 </div>
