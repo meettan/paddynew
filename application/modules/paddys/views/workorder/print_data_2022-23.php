@@ -31,9 +31,9 @@ function printDiv() {
 }
 </script>
 <div class="wraper">
+<input type="button" class="btn btn-danger" onclick="printDiv('print_emp')" value="Print" style="float:right">
 <div id="divToPrint">
-    <input type="button" class="btn btn-danger" onclick="printDiv('print_emp')" value="Print" style="float:right">
-
+    
     <div class="col-md-12 container form-wraper" style="height:1600px;" id="print_emp">
 
         <div style="width: 100%; height: 842px; padding-top:142px;">
