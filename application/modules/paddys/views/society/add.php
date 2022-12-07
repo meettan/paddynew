@@ -26,12 +26,24 @@
                 </div>
                 <div class="form-group row">
 
-                    <label for="name" class="col-sm-2 col-form-label">Society Code:</label>
+                    <label for="name" class="col-sm-2 col-form-label">Society Code:<span style="color:red;"> *</span></label>
 
                     <div class="col-sm-10">
 
                         <input
-                            class="form-control required" name="society_code"  id="society_code"  />
+                            class="form-control" name="society_code"  id="society_code" required />
+
+                    </div>
+
+                </div>
+                <div class="form-group row">
+
+                    <label for="name" class="col-sm-2 col-form-label">Incharge Name:<span style="color:red;"> *</span></label>
+
+                    <div class="col-sm-10">
+
+                        <input
+                            class="form-control" name="inchargename"  id="inchargename" required />
 
                     </div>
 
@@ -242,7 +254,7 @@
 
                     <div class="col-sm-10">
 
-                        <input type="submit" class="btn btn-info" value="Save" />
+                        <input type="submit" class="btn btn-info" value="Save" id="submit" />
 
                     </div>
 
@@ -250,61 +262,46 @@
 
             </div>
 
-            <div class="col-md-5 container form-wraper" style="margin-left: 10px; width: 48%;">
+            <!--  <div class="col-md-5 container form-wraper" style="margin-left: 10px; width: 48%;">
                         
-                
-                <div class="form-header">
+              <div class="form-header">
                     
                     <h4>Guidelines</h4>
                 
                 </div>
 
-                <table class="table table-bordered table-hover">
-
+                 <table class="table table-bordered table-hover">
                     <thead>
-
                         <tr>
-
                             <th><input type="checkbox" class="form-check-input" id="select-all"> All</th>
                             <th>Sl. No.</th>
                             <th>Documents</th>
-
                         </tr>
-
                     </thead>
-                        
                     <tbody> 
                     <?php 
-                        $count=0;
-                        foreach($guidelines as $guideline){ 
+                     //   $count=0;
+                       // foreach($guidelines as $guideline){ 
                              ?>
                                     <tr>
                                         
                       <td><input type="checkbox" class="form-check-input checkbox" name="guide_lines_id[]" value="<?php if(isset($guideline->sl_no)){echo $guideline->sl_no; } ?>"></td>
-                                    <td><?php echo ++$count;?></td>
-                                    <td><?php if(isset($guideline->guide_lines)){echo $guideline->guide_lines; } ?></td>
-                                        
+                                    <td><?php //echo ++$count;?></td>
+                                    <td><?php //if(isset($guideline->guide_lines)){echo $guideline->guide_lines; } ?></td>
+       
                                     </tr>
-
-                             <?php } ?>
-                                  
+                             <?php // } ?>    
                     </tbody>
-
                     <tfoot>
 
                         <tr>
-                        
                             <th>All</th>
                             <th>Sl. No.</th>
                             <th>Documents</th>
-
                         </tr>
-                    
                     </tfoot>
-
-                </table>
-
-            </div>
+                </table> 
+            </div>-->
 
         </form>
 
@@ -312,35 +309,58 @@
 
 <script>
 
-    $("#form").validate();
+   // $("#form").validate();
 
 
 </script>
 
 <script>
-function validate_form()
-            {
-            valid = true;
+// function validate_form()
+//             {
+//             valid = true;
 
-            if($('input[type=checkbox]:checked').length == 0)
-            {
-                alert ( "ERROR! Please select at least one checkbox" );
-                valid = false;
-            }
+//             if($('input[type=checkbox]:checked').length == 0)
+//             {
+//                 alert ( "ERROR! Please select at least one checkbox" );
+//                 valid = false;
+//             }
 
-            return valid;
-            }
+//             return valid;
+//             }
 
-            $('#select-all').click(function(event) {   
-        if(this.checked) {
-        // Iterate each checkbox
-          $(':checkbox').each(function() {
-            this.checked = true;                        
-           });
-        } else {
-          $(':checkbox').each(function() {
-            this.checked = false;                       
-           });
+//             $('#select-all').click(function(event) {   
+//         if(this.checked) {
+//         // Iterate each checkbox
+//           $(':checkbox').each(function() {
+//             this.checked = true;                        
+//            });
+//         } else {
+//           $(':checkbox').each(function() {
+//             this.checked = false;                       
+//            });
+//         }
+//        });
+
+$("#society_code").change(function(e){
+    
+     var soc_id = $("#society_code").val(); // anchors do have text not values.
+    
+      $.ajax({
+        url: '<?php echo base_url();?>index.php/paddys/add_new/f_validate_soc_code',
+        data: {'soc_id': soc_id}, // change this to send js object
+        type: "post",
+        dataType: 'json',
+        success: function(data){
+           console.log(data); 
+            var cnt= data.cnt;
+              if(cnt > 0){
+                alert('Society Code already Exist');
+                //$('#society_code').val(parseFloat(data.order));
+                $('#submit').attr('type', 'button');
+              } else{
+                $('#submit').attr('type', 'submit');
+              }
         }
-       });
+      });
+   });
 </script>
