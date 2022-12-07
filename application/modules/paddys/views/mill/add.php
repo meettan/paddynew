@@ -4,7 +4,7 @@
         <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
 
             <form method="POST" 
-            id="" action="<?php echo site_url("paddys/add_new/f_mill_add");?>" onsubmit="return validate_form();" >
+            id="" action="<?php echo site_url("paddys/add_new/f_mill_add");?>" onsubmit="" >
 
                 <div class="form-header">
                 
@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group row">
 
-                    <label for="name" class="col-sm-2 col-form-label">Mill Code:</label>
+                    <label for="name" class="col-sm-2 col-form-label">Mill Code:<span style="color:red;"> *</span></label>
 
                     <div class="col-sm-10">
 
@@ -272,22 +272,20 @@
 
                     <div class="col-sm-10">
 
-                        <input type="submit" class="btn btn-info" value="Save" />
+                        <input type="submit" class="btn btn-info" value="Save" id="submit"/>
                     </div>
 
                 </div>
             
         </div>
-    <div class="col-md-5 container form-wraper" style="margin-left: 10px; width: 48%;">
+
+        <!--<div class="col-md-5 container form-wraper" style="margin-left: 10px; width: 48%;">
                     
                     <div class="form-header">
-                        
                         <h4>F&S Guidelines</h4>
-                    
                     </div>
 
-                    <table class="table table-bordered table-hover">
-
+                     <table class="table table-bordered table-hover">
                         <thead>
 
                             <tr>
@@ -302,9 +300,9 @@
                         <tbody> 
 
                             <?php 
-$count=0;
-  foreach($guidelines as $guideline){ 
-?>
+                                  //  $count=0;
+                               //     foreach($guidelines as $guideline){ 
+                                    ?>
                                     <tr>
                                         
                       <td><input type="checkbox" class="form-check-input checkbox" name="guide_lines_id[]" value="<?php if(isset($guideline->sl_no)){echo $guideline->sl_no; } ?>"></td>
@@ -313,11 +311,8 @@ $count=0;
                                         
                                     </tr>
 
-                             <?php } ?>
+                             <?php  // } ?>
                                   
-                                    
-
-                                                    
                         </tbody>
 
                         <tfoot>
@@ -332,9 +327,9 @@ $count=0;
                         
                         </tfoot>
 
-                    </table>
+                    </table> 
 
-                </div>
+                </div>-->
 
               </form>
     </div>
@@ -343,34 +338,53 @@ $count=0;
 
 
 <script>
-      function validate_form()
-            {
-            valid = true;
 
-            if($('input[type=checkbox]:checked').length == 0)
-            {
-                alert ( "ERROR! Please select at least one checkbox" );
-                valid = false;
-            }
+$("#mill_code").change(function(e){
+    
+    var mill_code = $("#mill_code").val(); // anchors do have text not values.
+   
+     $.ajax({
+       url: '<?php echo base_url();?>index.php/paddys/add_new/f_validate_mill_code',
+       data: {'mill_code': mill_code}, // change this to send js object
+       type: "post",
+       dataType: 'json',
+       success: function(data){
+          console.log(data); 
+           var cnt= data.cnt;
+             if(cnt > 0){
+               alert('Mill Code already Exist');
+               $('#submit').attr('type', 'button');
+             } else{
+               $('#submit').attr('type', 'submit');
+             }
+       }
+     });
+  });
+    //   function validate_form()
+    //         {
+    //         valid = true;
 
-            return valid;
-            }
+    //         if($('input[type=checkbox]:checked').length == 0)
+    //         {
+    //             alert ( "ERROR! Please select at least one checkbox" );
+    //             valid = false;
+    //         }
 
-
-
-       // Listen for click on toggle checkbox
-     $('#select-all').click(function(event) {   
-        if(this.checked) {
-        // Iterate each checkbox
-          $(':checkbox').each(function() {
-            this.checked = true;                        
-           });
-        } else {
-          $(':checkbox').each(function() {
-            this.checked = false;                       
-           });
-        }
-       });
+    //         return valid;
+    //         }
+    //    // Listen for click on toggle checkbox
+    //  $('#select-all').click(function(event) {   
+    //     if(this.checked) {
+    //     // Iterate each checkbox
+    //       $(':checkbox').each(function() {
+    //         this.checked = true;                        
+    //        });
+    //     } else {
+    //       $(':checkbox').each(function() {
+    //         this.checked = false;                       
+    //        });
+    //     }
+    //    });
     </script>
 
 

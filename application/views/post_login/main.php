@@ -87,7 +87,7 @@
                             <i class="fa fa-angle-down"></i>
                         </div>
                         <div class="dropdown-content">
-                        <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
+                        <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y") { ?>
                             <a href="<?php echo site_url('paddys/add_new/f_fs_guidelines');?>">F&S Guidelines</a>
                             <a href="<?php echo site_url('paddys/add_new/f_district');?>">District</a>
                             <a href="<?php echo site_url('paddys/add_new/f_block');?>">Block</a>
@@ -96,9 +96,9 @@
                             <a href="<?php echo site_url('paddys/add_new/particulars');?>">Parameters</a> 
                             <a href="<?php echo site_url('paddys/add_new/f_paddy_bank');?>">Bank</a>
                             <?php } ?>
-                            <?php if( $this->session->userdata['loggedin']['ho_flag']=="N" ){?> 
+                            <?php if( $this->session->userdata['loggedin']['ho_flag']=="N" ){ ?> 
 							<a href="<?php echo site_url('paddy/societyl');?>">Society</a>
-							 <a href="<?php echo site_url('paddys/add_new/f_milll');?>">Mill</a>
+							<a href="<?php echo site_url('paddys/add_new/f_milll');?>">Mill</a>
                             <a href="<?php echo site_url('paddys/add_new/f_society_mill');?>">Society Mill Connection</a> 
 							
                             <?php } ?> 

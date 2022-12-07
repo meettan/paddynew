@@ -958,7 +958,13 @@ class Add_new extends MX_Controller {
         }
            
     }
+    public function f_validate_soc_code(){
 
+        $soc_id = trim($this->input->post("soc_id"));
+        $target= $this->Paddy->f_get_particulars("md_society",array('IFNULL(count(*),0) cnt'),array("society_code" =>$soc_id), 1);
+        $data["cnt"]=$target->cnt;
+        echo json_encode($data);
+    }
 
     //New Society add in the table md_society
     public function f_society_add() {
@@ -967,7 +973,11 @@ class Add_new extends MX_Controller {
             
             $data_array = array (
 
-                "society_code"   =>  $this->input->post('society_code'),
+                "sl_no"  =>  $this->input->post('society_code'),
+
+                "society_code"  =>  $this->input->post('society_code'),
+
+                "inchargename"  =>  $this->input->post('inchargename'),
 
                 "soc_name"      =>  $this->input->post('name'),
 
@@ -1013,7 +1023,7 @@ class Add_new extends MX_Controller {
 
                 "gst_no"        =>  $this->input->post('gst_no'),
 
-                "guide_lines_id"  => implode(",",$this->input->post('guide_lines_id')),
+               // "guide_lines_id"  => implode(",",$this->input->post('guide_lines_id')),
 
                 "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -1029,7 +1039,7 @@ class Add_new extends MX_Controller {
             //For notification storing message
             $this->session->set_flashdata('msg', 'Successfully added!');
 
-            redirect('paddys/add_new/f_society');
+            redirect('paddy/societyl');
 
         }
 
@@ -1413,7 +1423,13 @@ class Add_new extends MX_Controller {
 
         
     }
+    public function f_validate_mill_code(){
 
+        $mill_code = trim($this->input->post("mill_code"));
+        $target= $this->Paddy->f_get_particulars("md_mill",array('IFNULL(count(*),0) cnt'),array("mill_code" =>$mill_code), 1);
+        $data["cnt"]=$target->cnt;
+        echo json_encode($data);
+    }
     //New Mill add in the table md_mill
     public function f_mill_add() {
 
@@ -1434,7 +1450,7 @@ class Add_new extends MX_Controller {
             {
                 $this->session->set_flashdata('msg', 'You Misssed Required Field!');
 
-                redirect('paddys/add_new/f_mill');
+                redirect('paddys/add_new/f_milll');
 
             }else{
             
@@ -1484,7 +1500,7 @@ class Add_new extends MX_Controller {
 
                 "gst_no"        =>  $this->input->post('gst_no'),
 
-                "guide_lines_id"  => implode(",",$this->input->post('guide_lines_id')),
+                //"guide_lines_id"  => implode(",",$this->input->post('guide_lines_id')),
 
                 "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -1499,7 +1515,7 @@ class Add_new extends MX_Controller {
 
             $this->session->set_flashdata('msg', 'Successfully added!');
 
-            redirect('paddys/add_new/f_mill');
+            redirect('paddys/add_new/f_milll');
             }
 
         }
