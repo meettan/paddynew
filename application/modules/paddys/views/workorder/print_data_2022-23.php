@@ -31,7 +31,7 @@
 			<p style="margin: 0; padding: 0; line-height: 22px; font-size: 17px;"><strong>Subject:</strong> Work Order in respect of Procurement of Paddy for the KMS: <?php if(isset($this->session->userdata['loggedin']['kms_yr'])){ echo $this->session->userdata['loggedin']['kms_yr'];}?> through BENFED, <strong><?php if(isset($this->session->userdata['loggedin']['branch_name'])){ echo $this->session->userdata['loggedin']['branch_name'];}?></strong></p></td>
 		</tr>
 		<tr>
-		<td style="text-align: left; padding: 10px 10px 10px 10px; font-family: arial; font-size: 15px;"><p style="font-size: 15px; line-height: 20px; 
+		<td align="left" valign="top" style="text-align: left; padding: 10px 10px 10px 10px; font-family: arial; font-size: 15px;"><p style="font-size: 15px; line-height: 20px; 
 			margin: 0 0 20px 0; padding: 0;">Madam/ Dear Sir, <br><br>
 
 In reference of the Order No. 4328-FS/Sectt./Food/4P-17/2022 (Pt. I) dated 04/11/2022 and instructions of the Food
@@ -206,7 +206,7 @@ within the stipulated time frame.</li>
 function printDiv(divName) {
     var divToPrint = document.getElementById(divName);
     var stylesheet = '<?=base_url();?>assets/css/bootstrap.min.css';
-    var popupWin = window.open('', '', 'width=1240,height=800');
+    var popupWin = window.open('', '', 'width=1240,height=1500');
     popupWin.document.open();
     console.log(stylesheet);
     popupWin.document.write('<html><body onload="window.print()">'+
