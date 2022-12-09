@@ -324,7 +324,7 @@ class Transactions extends MX_Controller {
 
             $select     =   array(
 
-                "t.*","s.soc_name soc_name","m.mill_name mill_name","p.per_qui_rate per_qui_rate"
+                "t.*","s.soc_name soc_name","m.mill_name mill_name","p.per_qui_rate per_qui_rate",'q.reg_no'
     
             );
             $where  =   array(
@@ -332,6 +332,10 @@ class Transactions extends MX_Controller {
                 "t.soc_id = s.sl_no"    => NULL,
 
                 "t.mill_id = m.sl_no"    => NULL,
+
+                "q.soc_id = t.soc_id"    => NULL,
+
+                "q.mill_id = t.mill_id"    => NULL,
 
                 "t.kms_year = p.kms_yr"    => NULL,
 
@@ -342,7 +346,7 @@ class Transactions extends MX_Controller {
                 "t.order_no"     =>  $_GET["order_no"]
             );
 
-            $workorder['workorder_dtls']= $this->Paddy->f_get_particulars("td_work_order t,md_society s,md_mill m,md_paddy_rate p", $select, $where, 1);
+            $workorder['workorder_dtls']= $this->Paddy->f_get_particulars("td_work_order t,md_society s,md_mill m,md_paddy_rate p,md_soc_mill q", $select, $where, 1);
 
             $this->load->view('post_login/main');
 

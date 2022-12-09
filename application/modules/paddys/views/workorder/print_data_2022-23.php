@@ -13,7 +13,7 @@ function printDiv() {
         'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
         '.wrapper{box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); max-width: 900px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana; }' +
         '.billPrintWrapper{padding: 15px; color: #333;}' +
-		
+		'td{padding: 10px 10px 10px 10px}'+
         '.billPrintWrapper p {color: #333; font-family:Arial, Tahoma, Verdana; font-size: 16px; margin: 0 auto; padding: 0 0 20px 0; line-height: 29px;}' +
         '.billPrintWrapper p.subTxt{text-align: center; font-weight: 700;font-size: 20px;}' +
         '.checkBox{display: inline-block; border: #333 solid 1px; width: 40px; height: 40px;}' +
@@ -91,8 +91,8 @@ function printDiv() {
 
                                 In reference of the Order No. 4328-FS/Sectt./Food/4P-17/2022 (Pt. I) dated 04/11/2022
                                 and instructions of the Food
-                                &amp; Supplies Department, Government of West Bengal and tripartite agreement (No.
-                                ________________) executed by
+                                &amp; Supplies Department, Government of West Bengal and tripartite agreement ( No.  
+                                <?php if(isset($workorder_dtls->reg_no)){ echo $workorder_dtls->reg_no; }?> ) executed by
                                 your Cooperative Society, you are requested to procure FAQ paddy of common variety under
                                 the Decentralized
                                 Procurement operation of the Government under KMS:
