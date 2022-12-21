@@ -1561,10 +1561,14 @@ class Add_new extends MX_Controller {
 
         else {
              
-            
+            $whereb = array(
+
+                "1 ORDER BY bank_name"    =>  NULL
+
+            );
             //Block List
             $mill['block']   =   $this->Paddy->f_get_particulars("md_block", NULL,array("branch_id" => $this->session->userdata['loggedin']['branch_id']), 0);
-            
+            $mill['bank_dtls']    =   $this->Paddy->f_get_particulars("md_bank_dtls", NULL, $whereb, 0);
              // Guidelines List
             $mill['guidelines']         =   $this->Paddy->f_get_particulars("md_fs_guide_lines", NULL, NULL, 0);
 
@@ -1774,7 +1778,7 @@ class Add_new extends MX_Controller {
             );
             
             $this->Paddy->f_edit('md_mill', $data_array, $where);
-
+            
             //For notification storing message
             $this->session->set_flashdata('msg', 'Successfully updated!');
 
