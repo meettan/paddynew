@@ -48,7 +48,7 @@ function printDiv() {
                                     <tr>
                                         <td width="80%" valign="top">
                                             <p style="margin: 0; padding: 0; line-height: 18px;">Ref. No. <strong
-                                                    style="text-transform: uppercase;"><?=$workorder_dtls->pre_order_no;?><?=$workorder_dtls->order_no;?></strong>
+                                                    style="text-transform: uppercase;"><?=$workorder_dtls->pre_order_no;?><?php //$workorder_dtls->order_no;?></strong>
                                             </p>
                                         </td>
                                         <td valign="top">
@@ -299,7 +299,8 @@ function printDiv() {
                                         <td width="80%" valign="bottom">
                                             <p style="margin: 0; padding: 0; line-height: 20px; font-size: 15px;">
                                                 Memo. No. <strong
-                                                    style="text-transform: uppercase;"><?=$workorder_dtls->pre_order_no;?><?=$workorder_dtls->order_no;?>(4)</strong><br>
+                                                    style="text-transform: uppercase;">
+                                                    <?=$workorder_dtls->pre_order_no;?><?php //$workorder_dtls->order_no;?>(4)</strong><br>
                                             </p>
                                         </td>
 
