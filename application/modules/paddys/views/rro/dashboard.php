@@ -2,7 +2,7 @@
 
         <div class="row">
             <div class="col-lg-9 col-sm-12">
-                <h1><strong>Paddy Procurement</strong></h1>
+                <h1><strong>SocietyWise RiceMillWise RRO Status Upload</strong></h1>
             </div>
 
         </div>
