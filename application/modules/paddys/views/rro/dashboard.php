@@ -30,7 +30,7 @@
                         <th>CMR Delivery<br>State Pool</th>
                         <th>CMR Delivery<br>Central Pool</th>
                         <th>WQSC</th>
-                        <!-- <th>Option</th> -->
+                        <th>Option</th>
                       
                     </tr>
 
@@ -55,13 +55,13 @@
                           <td><?php echo $rro->cmr_state_pool; ?></td>
                           <td><?php echo $rro->cmr_central_pool; ?></td>
                           <td><?php echo $rro->wqsc; ?></td>
-                          <!-- <td>
+                          <td>
                                    
                              <button type="button" class="delete" id="<?=$rro->id;?>/<?=$rro->trans_dt;?>/<?=$rro->bulk_trans_id;?>" data-toggle="tooltip" data-placement="bottom" title="Delete">         
                                     <i class="fa fa-trash fa-2x" style="color: #007bff"></i>
                                 </button>
                             
-                           </td> -->
+                           </td>
                 <?php 
                        }
                     }
@@ -85,7 +85,7 @@
                         <th>CMR Delivery<br>State Pool</th>
                         <th>CMR Delivery<br>Central Pool</th>
                         <th>WQSC</th>
-                        <!-- <th>Option</th> -->
+                        <th>Option</th>
                     </tr>
                 </tfoot>
             </table>
@@ -106,7 +106,7 @@
 
             if(result) {
 
-                window.location = "<?php echo site_url('paddys/transactions/f_paddyproc_delete?soc_id="+id+"');?>";
+                window.location = "<?php echo site_url('paddys/transactions/f_rroupload_delete?data="+id+"');?>";
 
             }
             

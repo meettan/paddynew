@@ -5575,5 +5575,26 @@ class Transactions extends MX_Controller {
             $this->load->view('post_login/footer');
 
         }
+        public function f_rroupload_delete(){
+
+            $data=explode ("/", $this->input->get('data'));
+            $id = $data["0"];
+            $trans_dt = $data["1"];
+            $bulk_trans_id = $data["2"];
+
+            $where      =   array(
+
+                "id"        => $id,
+                "trans_dt"      => $trans_dt,
+                "bulk_trans_id" => $bulk_trans_id,
+
+            );
+
+
+            $data = $this->Paddy->f_delete("td_rro_status_upload", $where);
+
+            redirect('paddys/transactions/rroupload');
+
+    }
 
 }    
