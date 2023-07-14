@@ -5493,5 +5493,87 @@ class Transactions extends MX_Controller {
 
    
     }
+    //    **********  Developed by Lokesh on 14/07/2023    ******        //       
+    public function f_rroupload(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+              
+                $trans_dt       = $this->input->post('trans_dt');
+                $kms_id         = $this->session->userdata['loggedin']['kms_id'];  
+                $branch_cd      = $this->session->userdata['loggedin']['branch_id'];
+                $bulk_trns_id = $this->Paddy->f_get_particulars("td_rro_status_upload",array("ifNULL(MAX(bulk_trans_id),0) bulk_trans_id"),array('kms_id' => $kms_id), 1);
+                $bulk_trns_id = $bulk_trns_id->bulk_trans_id+1;  
+               //For Excel Upload
+                $csvMimes = array('text/x-comma-separated-values',
+                           'text/comma-separated-values',
+                           'application/octet-stream',
+                           'application/vnd.ms-excel',
+                           'application/x-csv',
+                           'text/x-csv',
+                           'text/csv',
+                           'application/csv',
+                           'application/excel',
+                           'application/vnd.msexcel',
+                           'text/plain');
+               
+                if(!empty($_FILES['f_procurement_detail']['name']) && in_array($_FILES['f_procurement_detail']['type'],$csvMimes)){
+                           
+                    $csvFile  = fopen($_FILES['f_procurement_detail']['tmp_name'], 'r');
+                    $totqty = 0;
+                        
+                        while(($line = fgetcsv($csvFile)) !== FALSE){
+                            if($line[2] !='') {
+                                $data[] = array(
+                                "trans_dt"         => $trans_dt,
+                                'bulk_trans_id'    => $bulk_trns_id,
+                                "branch_id"        =>  $this->session->userdata['loggedin']['branch_id'],
+                                "soc_name"         =>  $line[1],
+                                "rice_mill_name"   =>  $line[2],
+                                "rro_number"       =>  $line[3],
+                                "cmr_rro"          =>  $line[4],
+                                'cmr_state_pool'   =>  $line[5],
+                                "cmr_central_pool" =>  $line[6],
+                                'wqsc'             =>  $line[7],
+                                "kms_id"           =>  $this->session->userdata['loggedin']['kms_id'],
+                                'created_by'       => $this->session->userdata['loggedin']['user_name'],
+                                "created_dt"       =>  date('Y-m-d h:i:s')
+                               );
+                            }
+                                        
+                        }
+                        
+                        unset($data[0]);
+                        $data = array_values($data);
+                        fclose($csvFile);
+            
+                    $this->Paddy->f_insert_multiple('td_rro_status_upload', $data);
+                   
+                }
+            
+                //For notification storing message
+                $this->session->set_flashdata('msg', 'Successfully added!');
+                redirect('paddys/transactions/rroupload');
+    
+            }
+            else {
+    
+                $this->load->view('post_login/main');
+                $this->load->view("rro/upload_fle");
+                $this->load->view('post_login/footer');
+    
+            }    
+    
+        }
+
+        public function rroupload(){ 
+
+            $select  = array('a.*','b.branch_name');
+            $where   = array('a.branch_id =b.id' => NULL);
+            $data['rro_dtls'] =   $this->Paddy->f_get_particulars('td_rro_status_upload a,md_branch b',$select,$where, 0);
+            $this->load->view('post_login/main');
+            $this->load->view("rro/dashboard",$data);
+            $this->load->view('post_login/footer');
+
+        }
 
 }    
