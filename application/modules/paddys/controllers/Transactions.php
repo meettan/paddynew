@@ -5596,5 +5596,114 @@ class Transactions extends MX_Controller {
             redirect('paddys/transactions/rroupload');
 
     }
+    public function f_soc_mill_wise_gunnybag_upload(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+              
+                $trans_dt       = $this->input->post('trans_dt');
+                $kms_id         = $this->session->userdata['loggedin']['kms_id'];  
+                $branch_cd      = $this->session->userdata['loggedin']['branch_id'];
+                $bulk_trns_id = $this->Paddy->f_get_particulars("td_soc_mill_dis_gunny_upload",array("ifNULL(MAX(bulk_trans_id),0) bulk_trans_id"),array('kms_id' => $kms_id), 1);
+                $bulk_trns_id = $bulk_trns_id->bulk_trans_id+1;  
+               //For Excel Upload
+                $csvMimes = array('text/x-comma-separated-values',
+                           'text/comma-separated-values',
+                           'application/octet-stream',
+                           'application/vnd.ms-excel',
+                           'application/x-csv',
+                           'text/x-csv',
+                           'text/csv',
+                           'application/csv',
+                           'application/excel',
+                           'application/vnd.msexcel',
+                           'text/plain');
+               
+                if(!empty($_FILES['f_procurement_detail']['name']) && in_array($_FILES['f_procurement_detail']['type'],$csvMimes)){
+                           
+                    $csvFile  = fopen($_FILES['f_procurement_detail']['tmp_name'], 'r');
+                    $totqty = 0;
+                        
+                        while(($line = fgetcsv($csvFile)) !== FALSE){
+                            if($line[2] !='') {
+                                $data[] = array(
+                                "trans_dt"         => $trans_dt,
+                                'bulk_trans_id'    => $bulk_trns_id,
+                                "branch_id"        =>  $this->session->userdata['loggedin']['branch_id'],
+                                "soc_name"         =>  $line[2],
+                                "rice_mill_name"   =>  $line[1],
+                                "dispatch_qty"      =>  $line[3],
+                                "receive_to_miller" =>  $line[4],
+                                'resultant_cmr'    =>  $line[5],
+                                "offer_qty"        =>  $line[6],
+                                'offer_received'   =>  $line[7],
+                                "do_issued"        =>  $line[8],
+                                'do_deliver_cp'    =>  $line[9],
+                                "do_deliver_sp"    =>  $line[10],
+                                'do_deliver_tot'   =>  $line[11],
+                                'cmr_pending'      =>  $line[12],
+                                "paddy_in_hand"    =>  $line[13],
+                                'gunny_bag'        =>  $line[14],
+                                "kms_id"           =>  $this->session->userdata['loggedin']['kms_id'],
+                                'created_by'       => $this->session->userdata['loggedin']['user_name'],
+                                "created_dt"       =>  date('Y-m-d h:i:s')
+                               );
+                            }
+                                        
+                        }
+                        
+                        unset($data[0]);
+                        $data = array_values($data);
+                        fclose($csvFile);
+            
+                    $this->Paddy->f_insert_multiple('td_soc_mill_dis_gunny_upload', $data);
+                   
+                }
+            
+                //For notification storing message
+                $this->session->set_flashdata('msg', 'Successfully added!');
+                redirect('paddys/transactions/soc_mill_wise_gunnybag');
+    
+            }
+            else {
+    
+                $this->load->view('post_login/main');
+                $this->load->view("soc_mill_gunnybag/upload_fle");
+                $this->load->view('post_login/footer');
+    
+            }    
+    
+        }
+
+        public function soc_mill_wise_gunnybag(){ 
+
+            $select  = array('a.*','b.branch_name');
+            $where   = array('a.branch_id =b.id' => NULL);
+            $data['rro_dtls'] =   $this->Paddy->f_get_particulars('td_soc_mill_dis_gunny_upload a,md_branch b',$select,$where, 0);
+            $this->load->view('post_login/main');
+            $this->load->view("soc_mill_gunnybag/dashboard",$data);
+            $this->load->view('post_login/footer');
+
+        }
+        public function f_soc_mill_wise_gunnybag_delete(){
+
+            $data=explode ("/", $this->input->get('data'));
+            $id = $data["0"];
+            $trans_dt = $data["1"];
+            $bulk_trans_id = $data["2"];
+
+            $where      =   array(
+
+                "id"        => $id,
+                "trans_dt"      => $trans_dt,
+                "bulk_trans_id" => $bulk_trans_id,
+
+            );
+
+
+            $data = $this->Paddy->f_delete("td_soc_mill_dis_gunny_upload", $where);
+
+            redirect('paddys/transactions/soc_mill_wise_gunnybag');
+
+    }
 
 }    
