@@ -5707,7 +5707,7 @@ class Transactions extends MX_Controller {
                 $trans_dt       = $this->input->post('trans_dt');
                 $kms_id         = $this->session->userdata['loggedin']['kms_id'];  
                 $branch_cd      = $this->session->userdata['loggedin']['branch_id'];
-                $bulk_trns_id = $this->Paddy->f_get_particulars("td_soc_mill_dis_gunny_upload",array("ifNULL(MAX(bulk_trans_id),0) bulk_trans_id"),array('kms_id' => $kms_id), 1);
+                $bulk_trns_id = $this->Paddy->f_get_particulars("td_mill_dis_gunny_upload",array("ifNULL(MAX(bulk_trans_id),0) bulk_trans_id"),array('kms_id' => $kms_id), 1);
                 $bulk_trns_id = $bulk_trns_id->bulk_trans_id+1;  
                //For Excel Upload
                 $csvMimes = array('text/x-comma-separated-values',
@@ -5801,6 +5801,105 @@ class Transactions extends MX_Controller {
 
             $data = $this->Paddy->f_delete("td_mill_dis_gunny_upload", $where);
             redirect('paddys/transactions/mill_wise_gunnybag');
+        }
+
+        public function f_wqscupload(){
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                  
+                    $trans_dt       = $this->input->post('trans_dt');
+                    $kms_id         = $this->session->userdata['loggedin']['kms_id'];  
+                    $branch_cd      = $this->session->userdata['loggedin']['branch_id'];
+                    $bulk_trns_id = $this->Paddy->f_get_particulars("td_wqsc_upload",array("ifNULL(MAX(bulk_trans_id),0) bulk_trans_id"),array('kms_id' => $kms_id), 1);
+                    $bulk_trns_id = $bulk_trns_id->bulk_trans_id+1;  
+                   //For Excel Upload
+                    $csvMimes = array('text/x-comma-separated-values',
+                               'text/comma-separated-values',
+                               'application/octet-stream',
+                               'application/vnd.ms-excel',
+                               'application/x-csv',
+                               'text/x-csv',
+                               'text/csv',
+                               'application/csv',
+                               'application/excel',
+                               'application/vnd.msexcel',
+                               'text/plain');
+                   
+                    if(!empty($_FILES['f_procurement_detail']['name']) && in_array($_FILES['f_procurement_detail']['type'],$csvMimes)){
+                               
+                        $csvFile  = fopen($_FILES['f_procurement_detail']['tmp_name'], 'r');
+                        $totqty = 0;
+                            
+                            while(($line = fgetcsv($csvFile)) !== FALSE){
+                                if($line[2] !='') {
+                                    $data[] = array(
+                                    "trans_dt"         => $trans_dt,
+                                    'bulk_trans_id'    => $bulk_trns_id,
+                                    "branch_id"        =>  $this->session->userdata['loggedin']['branch_id'],
+                                    "soc_name"         =>  $line[1],
+                                    "rice_mill_name"   =>  $line[2],
+                                    "rice_rcpt_ord_no" =>  $line[3],
+                                    "wqsc_no"          =>  $line[4],
+                                    'wqsc_cmr_qty'     =>  $line[5],
+                                    "kms_id"           =>  $this->session->userdata['loggedin']['kms_id'],
+                                    'created_by'       => $this->session->userdata['loggedin']['user_name'],
+                                    "created_dt"       =>  date('Y-m-d h:i:s')
+                                   );
+                                }
+                                            
+                            }
+                            
+                            unset($data[0]);
+                            $data = array_values($data);
+                            fclose($csvFile);
+                
+                        $this->Paddy->f_insert_multiple('td_wqsc_upload', $data);
+                       
+                    }
+                
+                    //For notification storing message
+                    $this->session->set_flashdata('msg', 'Successfully added!');
+                    redirect('paddys/transactions/wqscupload');
+        
+                }
+                else {
+        
+                    $this->load->view('post_login/main');
+                    $this->load->view("wqsc_upload/upload_fle");
+                    $this->load->view('post_login/footer');
+        
+                }    
+        
+            }
+    
+            public function wqscupload(){ 
+    
+                $select  = array('a.*','b.branch_name');
+                $where   = array('a.branch_id =b.id' => NULL);
+                $data['rro_dtls'] =   $this->Paddy->f_get_particulars('td_wqsc_upload a,md_branch b',$select,$where, 0);
+                $this->load->view('post_login/main');
+                $this->load->view("wqsc_upload/dashboard",$data);
+                $this->load->view('post_login/footer');
+    
+            }
+            public function f_wqscupload_delete(){
+    
+                $data=explode ("/", $this->input->get('data'));
+                $id = $data["0"];
+                $trans_dt = $data["1"];
+                $bulk_trans_id = $data["2"];
+    
+                $where      =   array(
+                    "id"        => $id,
+                    "trans_dt"      => $trans_dt,
+                    "bulk_trans_id" => $bulk_trans_id
+                );
+    
+    
+                $data = $this->Paddy->f_delete("td_wqsc_upload", $where);
+    
+                redirect('paddys/transactions/wqscupload');
+    
         }
 
 }    

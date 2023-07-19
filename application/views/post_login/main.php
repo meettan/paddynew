@@ -203,7 +203,7 @@
                             <a href="<?php echo site_url('paddys/transactions/rroupload');?>">RRO Status Upload</a>
                             <a href="<?php echo site_url('paddys/transactions/soc_mill_wise_gunnybag');?>">Soc Mill gunnybag(Dispatch) Upload</a>
                             <a href="<?php echo site_url('paddys/transactions/mill_wise_gunnybag');?>">Mill gunnybag(Dispatch) Upload</a>
-                            
+                            <a href="<?php echo site_url('paddys/transactions/wqscupload');?>">WQSC Upload</a>
 
                             <?php } ?>                          
                         </div>
