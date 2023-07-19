@@ -2,7 +2,7 @@
 
         <div class="row">
             <div class="col-lg-9 col-sm-12">
-                <h1><strong>SocietyWise RiceMillWise Dispatch Gunnybag count Upload</strong></h1>
+                <h1><strong>RiceMillWise Dispatch Gunnybag count Upload</strong></h1>
             </div>
 
         </div>
@@ -12,7 +12,7 @@
             <h3 style="margin-bottom:30px">
 
        <!--<small><a href="<?php //echo site_url("paddys/transactions/f_paddycollection_add");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>-->
-            <small><a href="<?php echo site_url("paddys/transactions/f_soc_mill_wise_gunnybag_upload");?>" class="btn btn-primary" style="width: 100px;">Upload</a></small>
+            <small><a href="<?php echo site_url("paddys/transactions/f_mill_wise_gunnybag_upload");?>" class="btn btn-primary" style="width: 100px;">Upload</a></small>
                 <span class="confirm-div" style="float:right; color:green;"></span>
               
             </h3>
@@ -23,7 +23,7 @@
                     <tr>
                         <th>Sl. No</th>
                         <th>Transaction Dt</th>  
-                        <th>Society</th>
+                       
                         <th>Rice Mill</th>
                         <th>Dispatched quantity(MT) of paddy</th>
                         <th>Online receipt of paddy by the miller(MT)</th>
@@ -54,7 +54,7 @@
 
                           <td><?php echo ++$count; ?></td>
                           <td><?php echo date('d/m/Y',strtotime($rro->trans_dt)); ?></td>
-                          <td><?php echo $rro->soc_name; ?></td>
+                        
                           <td><?php echo $rro->rice_mill_name; ?></td>
                           <td><?php echo $rro->dispatch_qty; ?></td>
                           <td><?php echo $rro->receive_to_miller; ?></td>
@@ -91,7 +91,7 @@
                     <tr>
                     <th>Sl. No</th>
                         <th>Transaction Dt</th>  
-                        <th>Society</th>
+                       
                         <th>Rice Mill</th>
                         <th>Dispatched quantity(MT) of paddy</th>
                         <th>Online receipt of paddy by the miller(MT)</th>
@@ -126,7 +126,7 @@
 
             if(result) {
 
-                window.location = "<?php echo site_url('paddys/transactions/f_soc_mill_wise_gunnybag_delete?data="+id+"');?>";
+                window.location = "<?php echo site_url('paddys/transactions/f_mill_wise_gunnybag_delete?data="+id+"');?>";
 
             }
             

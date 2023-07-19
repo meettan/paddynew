@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Paddy extends CI_Model {
 
-    public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag,$order=NULL,$condition=NULL) {
+    public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag=NULL,$order=NULL,$condition=NULL) {
         
         if(isset($select)) {
 
